@@ -91,8 +91,11 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
      */
     public var image: UIImage { return self.toCropViewController.image }
     
+    /**
+     Set the border color of the cropping rectangle
+    */
     public var borderColor: UIColor? {
-        set { toCropViewController.borderColor = color }
+        set { toCropViewController.borderColor = newValue }
         get { return toCropViewController.borderColor }
     }
     
@@ -231,6 +234,8 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
         set { toCropViewController.rotateClockwiseButtonHidden = newValue }
         get { return toCropViewController.rotateClockwiseButtonHidden }
     }
+    
+    public var toolBarHidden: Bool = false
     
     /**
      When enabled, hides the rotation button, as well as the alternative rotation

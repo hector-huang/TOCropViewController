@@ -90,7 +90,7 @@
  */
 @property (nonnull, nonatomic, readonly) UIImage *image;
 
-@property (nonatomic, assign) UIColor *borderColor;
+@property (nullable, nonatomic, assign) UIColor *borderColor;
 
 /**
  The minimum croping aspect ratio. If set, user is prevented from setting cropping rectangle to lower aspect ratio than defined by the parameter.
@@ -136,6 +136,8 @@
  The toolbar view managed by this view controller.
  */
 @property (nonnull, nonatomic, strong, readonly) TOCropToolbar *toolbar;
+
+@property (nonatomic, assign) BOOL toolBarHidden;
 
 /**
  The cropping style of this particular crop view controller

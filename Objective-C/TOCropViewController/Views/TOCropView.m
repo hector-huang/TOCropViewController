@@ -132,6 +132,18 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     return self;
 }
 
+- (instancetype)initWithCroppingStyle:(TOCropViewCroppingStyle)style image:(UIImage *)image borderColor:(UIColor *)borderColor
+{
+    if (self = [super init]) {
+        _image = image;
+        _croppingStyle = style;
+        _borderColor = borderColor;
+        [self setup];
+    }
+    
+    return self;
+}
+
 - (void)setup
 {
     __weak typeof(self) weakSelf = self;
@@ -236,7 +248,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     }
     
     // The white grid overlay view
-    self.gridOverlayView = [[TOCropOverlayView alloc] initWithFrame:self.foregroundContainerView.frame];
+    self.gridOverlayView = [[TOCropOverlayView alloc] initWithFrame:self.foregroundContainerView.frame borderColor:self.borderColor];
     self.gridOverlayView.userInteractionEnabled = NO;
     self.gridOverlayView.gridHidden = YES;
     self.gridOverlayView.borderColor = self.borderColor;

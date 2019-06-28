@@ -50,6 +50,17 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame borderColor:(UIColor*) borderColor
+{
+    if (self = [super initWithFrame:frame]) {
+        self.clipsToBounds = NO;
+        self.borderColor = borderColor;
+        [self setup];
+    }
+    
+    return self;
+}
+
 - (void)setup
 {
     UIView *(^newLineView)(void) = ^UIView *(void){
