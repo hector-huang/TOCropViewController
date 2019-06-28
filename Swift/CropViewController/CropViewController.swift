@@ -91,6 +91,11 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
      */
     public var image: UIImage { return self.toCropViewController.image }
     
+    public var borderColor: UIColor? {
+        set { toCropViewController.borderColor = color }
+        get { return toCropViewController.borderColor }
+    }
+    
     /**
      The view controller's delegate that will receive the resulting
      cropped image, as well as crop information.

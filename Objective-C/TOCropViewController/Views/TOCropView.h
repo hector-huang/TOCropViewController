@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOCropView : UIView
 
+@property (nonatomic, assign) UIColor *borderColor;
+
 /**
  The image that the crop view is displaying. This cannot be changed once the crop view is instantiated.
  */

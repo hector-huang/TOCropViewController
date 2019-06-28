@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TOCropOverlayView : UIView
 
+@property (nonatomic, assign) UIColor *borderColor;
+
 /** Hides the interior grid lines, sans animation. */
 @property (nonatomic, assign) BOOL gridHidden;
 
