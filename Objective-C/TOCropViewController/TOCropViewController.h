@@ -137,7 +137,7 @@
  */
 @property (nonnull, nonatomic, strong, readonly) TOCropToolbar *toolbar;
 
-@property (nonatomic, assign) BOOL toolBarHidden;
+@property (nonatomic, assign) BOOL toolBoxHidden;
 
 /**
  The cropping style of this particular crop view controller
@@ -335,6 +335,11 @@
  @param image The image that will be cropped
  */
 - (nonnull instancetype)initWithCroppingStyle:(TOCropViewCroppingStyle)style image:(nonnull UIImage *)image NS_SWIFT_NAME(init(croppingStyle:image:));
+
+/**
+ Finish cropping image process and pass back the cropped image
+ */
+- (void)finishCroppingImageWithCompletion:(void (^ _Nonnull)(UIImage* _Nonnull image))completion;
 
 /**
  Resets object of TOCropViewController class as if user pressed reset button in the bottom bar themself

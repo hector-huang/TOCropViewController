@@ -110,6 +110,7 @@ static CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     // Set up view controller properties
     self.transitioningDelegate = self;
     self.view.backgroundColor = self.cropView.backgroundColor;
+    kTOCropViewControllerToolbarHeight = self.toolBoxHidden ? 0 : 44;
     
     BOOL circularMode = (self.croppingStyle == TOCropViewCroppingStyleCircular);
 
@@ -227,6 +228,41 @@ static CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     // Reset the state once the view has gone offscreen
     self.inTransition = NO;
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)finishCroppingImageWithCompletion:(void (^)(UIImage * _Nonnull))completion
+{
+    CGRect cropFrame = self.cropView.imageCropFrame;
+    NSInteger angle = self.cropView.angle;
+    
+    //If desired, when the user taps done, show an activity sheet
+    if (self.showActivitySheetOnDone) {
+        TOActivityCroppedImageProvider *imageItem = [[TOActivityCroppedImageProvider alloc] initWithImage:self.image cropFrame:cropFrame angle:angle circular:(self.croppingStyle == TOCropViewCroppingStyleCircular)];
+        TOCroppedImageAttributes *attributes = [[TOCroppedImageAttributes alloc] initWithCroppedFrame:cropFrame angle:angle originalImageSize:self.image.size];
+        
+        NSMutableArray *activityItems = [@[imageItem, attributes] mutableCopy];
+        if (self.activityItems) {
+            [activityItems addObjectsFromArray:self.activityItems];
+        }
+        
+        UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:self.applicationActivities];
+        activityController.excludedActivityTypes = self.excludedActivityTypes;
+        
+        activityController.modalPresentationStyle = UIModalPresentationPopover;
+        activityController.popoverPresentationController.sourceView = self.toolbar;
+        activityController.popoverPresentationController.sourceRect = self.toolbar.doneButtonFrame;
+        [self presentViewController:activityController animated:YES completion:nil];
+    }
+    
+    UIImage *image = nil;
+    if (angle == 0 && CGRectEqualToRect(cropFrame, (CGRect){CGPointZero, self.image.size})) {
+        image = self.image;
+    }
+    else {
+        image = [self.image croppedImageWithFrame:cropFrame angle:angle circularClip:NO];
+    }
+    
+    completion(image);
 }
 
 #pragma mark - Status Bar -

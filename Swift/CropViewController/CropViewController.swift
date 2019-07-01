@@ -235,7 +235,16 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
         get { return toCropViewController.rotateClockwiseButtonHidden }
     }
     
-    public var toolBarHidden: Bool = false
+    /**
+     Fully hide the Toolbar below
+    */
+    public var toolBoxHidden: Bool {
+        set {
+            toCropViewController.toolBoxHidden = newValue
+            self.toolbar.isHidden = newValue
+        }
+        get { return toCropViewController.toolBoxHidden }
+    }
     
     /**
      When enabled, hides the rotation button, as well as the alternative rotation
@@ -467,6 +476,10 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
         super.viewDidLayoutSubviews()
         toCropViewController.view.frame = view.bounds
         toCropViewController.viewDidLayoutSubviews()
+    }
+    
+    public func finishCroppingImageWithCompletion(completion: @escaping((UIImage) -> Void)) {
+        toCropViewController.finishCroppingImage(completion: completion)
     }
     
     /**

@@ -23,6 +23,7 @@ class ViewController: UIViewController, CropViewControllerDelegate, UIImagePicke
         
         let cropController = CropViewController(croppingStyle: croppingStyle, image: image)
         cropController.borderColor = .red
+        cropController.toolBoxHidden = true
         cropController.delegate = self
         
         // Uncomment this if you wish to provide extra instructions via a title label
